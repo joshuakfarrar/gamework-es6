@@ -1,0 +1,79 @@
+colors = {
+  dark_gray: #222,
+  dark_blue: #1b2f36,
+  light_gray: #9EABB3,
+}
+
+*
+  box-sizing: border-box
+
+html
+  font-family: "Open Sans", sans-serif
+  font-size: 15px
+
+body
+  color: colors.dark_gray
+
+h1, h2
+  text-rendering: optimizeLegibility
+  font-weight: normal
+  font-style: normal
+
+#splash
+  padding: 40px 0 30px
+
+#branding h1,
+#branding h2
+  margin: 0
+  padding: 0
+  border: 0
+  line-height: 1
+  text-align: center
+  color: white
+
+#branding h1
+  font-family: Raleway, serif;
+  font-size: 3rem
+  color: colors.dark_gray
+
+#branding h2
+  font-size: 1.2rem
+  margin-top: 10px
+  color: colors.dark_gray
+
+#content
+  width: 80%
+  max-width: 710px
+  margin: 0 auto
+  padding: 0 20px
+
+.post
+  font-family: "Open Sans", sans-serif
+  padding: 20px 0 20px 40px
+  margin-top: 20px
+  border-left: 2px solid colors.dark_gray
+  &:first-child
+    margin-top: 0
+
+.post-title
+  font-family: "Raleway", sans-serif
+  margin: 0
+  padding: 0
+  border: 0
+
+.post-excerpt
+  font-family: "Merriweather", serif
+  line-height: 1.7em
+
+.post-meta
+  color: colors.light_gray
+  a
+    color: colors.light_gray
+    text-decoration: none
+
+.post-date
+  font-size: 0.9rem
+  text-transform: uppercase
+  margin-left: 8px
+  padding-left: 12px
+  border-left: colors.dark_gray 1px solid

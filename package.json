@@ -1,0 +1,32 @@
+{
+  "name": "sent1nel.me",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.3.4",
+    "express": "^4.13.3"
+  },
+  "devDependencies": {
+    "babelify": "^6.3.0",
+    "browserify": "^11.1.0",
+    "chalk": "^1.1.1",
+    "del": "^2.0.2",
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.2.1",
+    "gulp-if": "^1.2.5",
+    "gulp-nodemon": "^2.0.4",
+    "gulp-stylus": "^2.0.6",
+    "gulp-util": "^3.0.6",
+    "lodash": "^3.10.1",
+    "prettytime": "^1.0.0",
+    "three": "^0.71.1",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.4.0"
+  }
+}
