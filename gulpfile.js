@@ -81,7 +81,7 @@ gulp.task('meshes', function() {
     .pipe(gulp.dest('./dist/meshes'));
 });
 
-gulp.task('serve', ['meshes', 'compile', 'stylus', 'browserify'], function() {
+gulp.task('serve', ['build'], function() {
   gulp.watch('./client/stylus/**/*.styl', ['stylus']);
   return nodemon({
     script: './server',
@@ -96,6 +96,4 @@ gulp.task('serve', ['meshes', 'compile', 'stylus', 'browserify'], function() {
   });
 });
 
-gulp.task('default', function() {
-  console.log("hej.");
-});
+gulp.task('build', ['meshes', 'compile', 'stylus', 'browserify']);
