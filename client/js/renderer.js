@@ -5,10 +5,13 @@ export default class Renderer {
     this.game = game;
     this.canvas = canvas;
 
+    this.isFrameStepping = false;
+    this.timeToStep = 0;
+
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(75, this.canvas.width / this.canvas.height, 1, 10000);
-    this.camera.position.z = 2;
+    this.camera.position.z = 3;
     this.camera.position.y = 1;
 
     this.clock = new THREE.Clock;
@@ -19,8 +22,15 @@ export default class Renderer {
 
   addMeshToScene(mesh) {
     this.mesh = mesh;
+    this.mesh.rotation.y = Math.PI * -135 / 180;
 
     this.scene.add(this.mesh);
+
+    this.helper = new THREE.SkeletonHelper( this.mesh );
+    this.helper.material.linewidth = 3;
+    this.scene.add( this.helper );
+
+    this.helper.visible = true;
 
     this.animation = new THREE.Animation(
       this.mesh,
@@ -31,8 +41,15 @@ export default class Renderer {
   }
 
   renderFrame() {
-    THREE.AnimationHandler.update(this.clock.getDelta());
+    var delta = this.clock.getDelta();
+    var scale = 1;
+    var stepSize = (!this.isFrameStepping) ? delta * scale: this.timeToStep;
+
+    this.helper.update();
+    THREE.AnimationHandler.update(stepSize);
 
     this.renderer.render(this.scene, this.camera);
+
+    this.timeToStep = 0;
   }
 }
