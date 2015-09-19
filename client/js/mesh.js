@@ -13,6 +13,8 @@ export default class Mesh {
     loader.load(this.filepath, (geometry) => {
       this.geometry = geometry;
       var material = new THREE.MeshBasicMaterial( { color: 0x00ffff, wireframe: true } );
+      material.skinning = true;
+
       this.mesh = new THREE.SkinnedMesh(geometry, material);
       this.loaded = true;
     });

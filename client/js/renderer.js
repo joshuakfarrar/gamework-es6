@@ -26,12 +26,6 @@ export default class Renderer {
 
     this.scene.add(this.mesh);
 
-    this.helper = new THREE.SkeletonHelper( this.mesh );
-    this.helper.material.linewidth = 3;
-    this.scene.add( this.helper );
-
-    this.helper.visible = true;
-
     this.animation = new THREE.Animation(
       this.mesh,
       this.mesh.geometry.animations[ 2 ]
@@ -41,11 +35,11 @@ export default class Renderer {
   }
 
   renderFrame() {
+    this.mesh.rotation.y += 0.02;
     var delta = this.clock.getDelta();
     var scale = 1;
     var stepSize = (!this.isFrameStepping) ? delta * scale: this.timeToStep;
 
-    this.helper.update();
     THREE.AnimationHandler.update(stepSize);
 
     this.renderer.render(this.scene, this.camera);
