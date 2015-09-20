@@ -1,6 +1,8 @@
 import _ from 'lodash';
+import THREE from 'three';
 
 import Renderer from './renderer';
+import Entity from './entity';
 import Mesh from './mesh';
 
 import Player from './player';
@@ -11,6 +13,7 @@ export default class Game {
     this.started = false;
     this.isStopped = false;
 
+    this.entities = [];
     this.meshes = [];
 
     this.player = new Player("player", "Joshua");
@@ -35,7 +38,7 @@ export default class Game {
         return;
       }
 
-      this.initMutalisk();
+      this.initMutalisks();
 
       if (this.hasNeverStarted) {
         this.started = true;
@@ -64,9 +67,13 @@ export default class Game {
     return loaded;
   }
 
-  initMutalisk() {
-    var mutalisk = this.meshes['mutalisk'];
-    this.renderer.addMeshToScene(mutalisk.mesh);
+  initMutalisks() {
+    for (var i = 0; i < 12; i++) {
+      var mutalisk = this.meshes['mutalisk'].getMesh();
+      var entity = new Entity(i);
+      entity.setMesh(mutalisk);
+      this.entities.push(entity);
+    }
   }
 
   start() {

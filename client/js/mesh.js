@@ -19,4 +19,8 @@ export default class Mesh {
       this.loaded = true;
     });
   }
+
+  getMesh() {
+    return this.mesh.clone();
+  }
 }
