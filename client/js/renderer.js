@@ -12,7 +12,7 @@ export default class Renderer {
     this.scene = new THREE.Scene();
 
     this.camera = new THREE.PerspectiveCamera(75, this.canvas.width / this.canvas.height, 1, 10000);
-    this.camera.position.z = 6;
+    this.camera.position.z = 10;
     this.camera.position.y = 4;
     this.camera.position.x = 4;
 
@@ -21,17 +21,6 @@ export default class Renderer {
     this.renderer = new THREE.WebGLRenderer({ canvas: this.canvas });
     this.renderer.setSize( this.canvas.width, this.canvas.height );
   }
-
-  /*addMeshToScene(mesh) {
-    this.mesh = mesh;
-    this.mesh.rotation.y = Math.PI * -135 / 180;
-
-    this.scene.add(this.mesh);
-
-    this.animation = this.createAnimation(2);
-
-    this.animation.play();
-  }*/
 
   renderFrame() {
     var newEntities = _.select(this.game.entities, 'onScene', false);
@@ -56,7 +45,8 @@ export default class Renderer {
       this.scene.add(mesh);
       mesh.position.x = x;
       mesh.position.y = y;
-      var animation = this.createAnimation(mesh, entity.id);
+      var id = (entity.id !== 12) ? entity.id : 5;
+      var animation = this.createAnimation(mesh, id);
       animation.play();
 
       entity.onScene = true;

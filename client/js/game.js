@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import THREE from 'three';
 
+import Updater from './updater';
 import Renderer from './renderer';
-import Entity from './entity';
+
+import Mortal from './mortal';
 import Mesh from './mesh';
 
 import Player from './player';
@@ -18,11 +20,15 @@ export default class Game {
 
     this.player = new Player("player", "Joshua");
 
-    this.meshNames = ['mutalisk'];
+    this.meshNames = ['mutalisk', 'battlecruiser'];
   }
 
   setRenderer(renderer) {
     this.renderer = renderer;
+  }
+
+  setUpdater(updater) {
+    this.updater = updater;
   }
 
   setup(canvas) {
@@ -31,6 +37,7 @@ export default class Game {
 
   run() {
     this.loadMeshes();
+    this.setUpdater(new Updater(this));
 
     var wait = setInterval(() => {
       var loaded = this.meshesLoaded();
@@ -70,10 +77,16 @@ export default class Game {
   initMutalisks() {
     for (var i = 0; i < 12; i++) {
       var mutalisk = this.meshes['mutalisk'].getMesh();
-      var entity = new Entity(i);
+      var entity = new Mortal(i);
       entity.setMesh(mutalisk);
       this.entities.push(entity);
     }
+
+    var battlecruiser = this.meshes['battlecruiser'].getMesh();
+    var entity = new Mortal(12);
+    entity.setMesh(battlecruiser);
+    this.entities.push(entity);
+    console.log(battlecruiser.geometry.animations);
   }
 
   start() {
@@ -83,6 +96,7 @@ export default class Game {
 
   tick() {
     if (this.started) {
+      this.updater.update();
       this.renderer.renderFrame();
     }
 

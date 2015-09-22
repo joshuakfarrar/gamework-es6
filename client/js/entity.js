@@ -4,8 +4,10 @@ export default class Entity {
     this.alive = false;
     this.onScene = false;
   }
-
   setMesh(mesh) {
     this.mesh = mesh;
+  }
+  destroy() {
+    this.alive = false;
   }
 }
