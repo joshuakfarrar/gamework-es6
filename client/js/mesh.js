@@ -20,7 +20,7 @@ export default class Mesh {
     });
   }
 
-  getMesh() {
+  clone() {
     return this.mesh.clone();
   }
 }

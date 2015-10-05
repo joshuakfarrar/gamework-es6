@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import THREE from 'three';
 
+import log from './log';
+
 import Updater from './updater';
 import Renderer from './renderer';
 
@@ -20,7 +22,7 @@ export default class Game {
 
     this.player = new Player("player", "Joshua");
 
-    this.meshNames = ['mutalisk', 'battlecruiser'];
+    this.meshNames = [];
   }
 
   setRenderer(renderer) {
@@ -40,17 +42,17 @@ export default class Game {
     this.setUpdater(new Updater(this));
 
     var wait = setInterval(() => {
-      var loaded = this.meshesLoaded();
-      if (!loaded) {
-        return;
+      if (this.meshesLoaded()) {
+        log.debug("Finished loading meshes.");
+
+        this.generateTerrain();
+
+        if (this.hasNeverStarted) {
+          this.started = true;
+          this.start();
+        }
       }
 
-      this.initMutalisks();
-
-      if (this.hasNeverStarted) {
-        this.started = true;
-        this.start();
-      }
       clearInterval(wait);
     }, 100);
   }
@@ -74,19 +76,19 @@ export default class Game {
     return loaded;
   }
 
-  initMutalisks() {
-    for (var i = 0; i < 12; i++) {
-      var mutalisk = this.meshes['mutalisk'].getMesh();
-      var entity = new Mortal(i);
-      entity.setMesh(mutalisk);
-      this.entities.push(entity);
+  generateTerrain() {
+    var colors = [0xc9847f, 0xe8d1cc, 0xe6e6e6, 0x8a7762, 0xa1d4a4, 0xbcd6bc];
+    var geometry = new THREE.PlaneGeometry(1, 1);
+    for (var i = -50; i < 50; i++) {
+      for (var j = -100; j < 10; j++) {
+        var color = colors[Math.floor((Math.random() * 6))];
+        var material = new THREE.MeshBasicMaterial({ color: color, side: THREE.DoubleSide });
+        var mesh = new THREE.Mesh(geometry, material);
+        mesh.rotation.x = Math.PI / 2;
+        mesh.position.set(i, 0, j);
+        this.renderer.addMesh(mesh);
+      }
     }
-
-    var battlecruiser = this.meshes['battlecruiser'].getMesh();
-    var entity = new Mortal(12);
-    entity.setMesh(battlecruiser);
-    this.entities.push(entity);
-    console.log(battlecruiser.geometry.animations);
   }
 
   start() {
@@ -104,5 +106,4 @@ export default class Game {
       window.requestAnimationFrame(this.tick.bind(this));
     }
   }
-
 }

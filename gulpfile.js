@@ -76,8 +76,15 @@ gulp.task('compile', function() {
     .pipe(gulp.dest('./server/lib'))
 });
 
-gulp.task('meshes', function() {
-  return gulp.src('./client/meshes/**/*.json')
+gulp.task('statics', function() {
+  gulp.src('./client/js/keypress.js')
+    .pipe(gulp.dest('./dist/js'));
+
+  var statics = [
+    './client/meshes/**/*.json',
+    './client/textures/**/*.png'
+  ]
+  return gulp.src(statics)
     .pipe(gulp.dest('./dist/meshes'));
 });
 
@@ -96,4 +103,4 @@ gulp.task('serve', ['build'], function() {
   });
 });
 
-gulp.task('build', ['meshes', 'compile', 'stylus', 'browserify']);
+gulp.task('build', ['statics', 'compile', 'stylus', 'browserify']);
