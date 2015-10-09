@@ -3,6 +3,7 @@ import THREE from 'three';
 
 import log from './log';
 
+import FPS from './fps';
 import Updater from './updater';
 import Renderer from './renderer';
 
@@ -33,8 +34,8 @@ export default class Game {
     this.updater = updater;
   }
 
-  setup(canvas) {
-    this.setRenderer(new Renderer(this, canvas));
+  setup(canvas, ui) {
+    this.setRenderer(new Renderer(this, canvas, ui));
   }
 
   run() {
@@ -97,6 +98,9 @@ export default class Game {
   }
 
   tick() {
+    var fps = new FPS();
+    fps.tick();
+
     if (this.started) {
       this.updater.update();
       this.renderer.renderFrame();
